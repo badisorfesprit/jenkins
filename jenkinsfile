@@ -5,14 +5,15 @@ stage('clone and clean repo'){
 steps {
 cleanWs()
 bat "git clone https://github.com/MedHammedi/TestJenkins"
-bat "mvn clean -f TestJenkins"
 } }
-stage('Test'){
-steps{ bat "mvn test -f TestJenkins"
+stage('Build and Test'){
+steps{ bat "mvn install -f TestJenkins"
 }}
 stage('Deploy'){
 steps {
 bat "mvn package -f TestJenkins"
 bat "mvn deploy -f TestJenkins"
 bat "mvn sonar:sonar -f TestJenkins"
-} }}}
+} }
+
+}}
